@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+	<h2>Registrera ny användare</h2>
+	{% if error %}
+		<p style="color:red">{{ error }}</p>
+	{% endif %}
+	<form method="post" action="/register">
+		Username: <input type="text" name="name" value="{{ form.name if form is defined else '' }}"><br>
+		Password: <input type="password" name="password" value=""><br>
+		E-mail: <input type="email" name="email" value="{{ form.email if form is defined else '' }}"><br>
+		<input type="submit" value="Registrera">
+	</form>
+	<p><a href="/">Tillbaka till inloggning</a></p>
+{% endblock %}
+

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Sida för inloggade användare</h2>
+    <p>Här finns en sida med information som handlar specifikt om användaren {{user['username']}}. Du kan t.ex. se användarens mailadress: {{user['email']}}.</p>
+    <p>
+        Du kan även skriva något här:
+            <form method="post" action="/append">
+                <textarea id="text" name="line" rows="4" cols="50" placeholder="Skriv något"></textarea>
+                <input type="submit" value="Spara">
+            </form>
+    </p>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+        }
+    </style>
+    <p>Tidigare inlägg:
+            <table>
+        <tr>
+            <th>Författare</th>
+            <th>Inlägg</th>
+            <th>Tid</th>
+        </tr>
+{% for post in posts %}
+        <tr>
+            <!-- i tur och ordning: användarnamn, text, klockslag -->
+            <td>{{ post[1] }}</td>
+            <td>{{ post[2] }}</td>
+            <td>{{ post[3] }}</td>
+        </tr>
+{% endfor %}
+    </table>
+    </p>
+    <p><a href="/login">Tillbaka till startsidan</a></p>
+    <p><a href="/logout">Logga ut</a></p>
+{% endblock %}

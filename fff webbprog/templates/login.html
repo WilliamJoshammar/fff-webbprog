@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Välkommen!</h2>
+    <p>Du är inloggad som {{user['username']}}.</p>
+    <p><a href="/annansida">Gå vidare</a></p>
+    <p><a href="/logout">Logga ut</a></p>
+{% endblock %}
