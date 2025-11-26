@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Forumtrådar</h2>
+    <p>Inloggad som {{ user['username'] }} — <a href="/annansida">Tillbaka</a></p>
+
+    <h3>Skapa ny tråd</h3>
+    <form method="post" action="/create_thread">
+        <input type="text" name="title" placeholder="Trådens titel" style="width:60%" required>
+        <input type="submit" value="Skapa">
+    </form>
+
+    <h3>Existerande trådar</h3>
+    <table>
+        <tr>
+            <th>Titel</th>
+            <th>Författare</th>
+            <th>Skapad</th>
+        </tr>
+    {% for thread in threads %}
+        <tr>
+            <td>{{ thread[1] }}</td>
+            <td>{{ thread[2] }}</td>
+            <td>{{ thread[3] }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+
+{% endblock %}
