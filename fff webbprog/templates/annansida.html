@@ -1,40 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2>Sida för inloggade användare</h2>
-    <p>Här finns en sida med information som handlar specifikt om användaren {{user['username']}}. Du kan t.ex. se användarens mailadress: {{user['email']}}.</p>
-    <p>
-        Du kan även skriva något här:
-            <form method="post" action="/append">
-                <textarea id="text" name="line" rows="4" cols="50" placeholder="Skriv något"></textarea>
-                <input type="submit" value="Spara">
-            </form>
-    </p>
-    <style>
-        table {
-            width: 50%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid black;
-        }
-    </style>
-    <p>Tidigare inlägg:
-            <table>
+    <p>Inloggad som {{ user['username'] }} — {{ user['email'] }}.</p>
+
+    <h3>Skapa ny tråd</h3>
+    <form method="post" action="/create_thread">
+        <input type="text" name="title" placeholder="Trådens titel" style="width:60%" required><br>
+        <textarea name="text" rows="4" cols="60" placeholder="Inläggets innehåll" required></textarea><br>
+        <input type="submit" value="Skapa tråd">
+    </form>
+
+    <h3>Trådar</h3>
+    <div class="threads-table-wrap">
+    <table class="threads-table">
         <tr>
+            <th>Titel</th>
             <th>Författare</th>
-            <th>Inlägg</th>
-            <th>Tid</th>
+            <th>Skapad</th>
         </tr>
-{% for post in posts %}
+    {% for t in threads %}
         <tr>
-            <!-- i tur och ordning: användarnamn, text, klockslag -->
-            <td>{{ post[1] }}</td>
-            <td>{{ post[2] }}</td>
-            <td>{{ post[3] }}</td>
+            <td><a href="/thread/{{ t[0] }}">{{ t[1] }}</a></td>
+            <td>{{ t[2] }}</td>
+            <td>{{ t[3] }}</td>
         </tr>
-{% endfor %}
+    {% endfor %}
     </table>
-    </p>
-    <p><a href="/login">Tillbaka till startsidan</a></p>
+    </div>
     <p><a href="/logout">Logga ut</a></p>
 {% endblock %}
