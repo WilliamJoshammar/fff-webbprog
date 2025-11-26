@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>{{ thread[1] }}</h2>
+  <p style="color: #666; font-size: 0.95em; margin-bottom: 20px;">Skapad av <strong>{{ thread[2] }}</strong> — {{ thread[3] }}</p>
+
+  {# Styles moved to static/style.css for maintainability #}
+
+  {% if root %}
+    <!-- Huvudinlägget från trådstartaren -->
+    <div class="main-post">
+      <div class="post-header">{{ root[2] }} skrev:</div>
+      <div class="post-text">{{ root[3] }}</div>
+      <div class="post-actions">
+        <form method="post" action="/like/{{ root[0] }}" class="inline-form">
+          <input type="submit" value="Gilla">
+        </form>
+        <span>Likes: {{ likes.get(root[0], 0) }}</span>
+      </div>
+    </div>
+
+    <!-- Formulär för nya kommentarer -->
+    <div class="comment-form-section">
+      <strong>Lägg till en kommentar:</strong>
+      <form method="post" action="/thread/{{ thread[0] }}">
+        <textarea name="text" rows="4" placeholder="Skriv din kommentar här..."></textarea><br>
+        <input type="submit" value="Posta kommentar">
+      </form>
+    </div>
+
+    <!-- Kommentarer och diskussioner -->
+    {% if comments %}
+      <div class="comments-section">
+        <h3 style="margin-bottom: 15px;">Diskussion ({{ comments|length }} kommentarer)</h3>
+        
+        {% for c in comments %}
+          {% if c[1] == 0 %}
+            <div class="comment">
+              <div class="comment-header">{{ c[2] }}</div>
+              <div class="comment-text">{{ c[3] }}</div>
+              <div class="post-actions">
+                <form method="post" action="/like/{{ c[0] }}" class="inline-form">
+                  <input type="submit" value="Gilla">
+                </form>
+                <span>Likes: {{ likes.get(c[0], 0) }}</span>
+              </div>
+
+              <div class="replies">
+                {% for child in comments %}
+                  {% if child[1] == c[0] %}
+                    <div class="reply">
+                      <div class="comment-header">{{ child[2] }}</div>
+                      <div class="comment-text">{{ child[3] }}</div>
+                      <div class="post-actions">
+                        <form method="post" action="/like/{{ child[0] }}" class="inline-form">
+                          <input type="submit" value="Gilla">
+                        </form>
+                        <span>Likes: {{ likes.get(child[0], 0) }}</span>
+                      </div>
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+
+              <div class="reply-form">
+                <strong class="reply-label">Svara:</strong>
+                <form method="post" action="/thread/{{ thread[0] }}">
+                  <input type="hidden" name="parent" value="{{ c[0] }}">
+                  <textarea name="text" rows="2" placeholder="Skriv ditt svar..."></textarea><br>
+                  <input type="submit" value="Skicka svar">
+                </form>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="comments-section">
+        <p style="color: #999; text-align: center; padding: 20px;">Ingen har kommenterat ännu. Var först!</p>
+      </div>
+    {% endif %}
+  {% endif %}
+
+  <p class="back-link"><a href="/annansida">← Tillbaka till trådar</a></p>
+{% endblock %}
