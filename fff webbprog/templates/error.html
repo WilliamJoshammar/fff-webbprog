@@ -2,4 +2,7 @@
 {% block content %}
     <h2>Fel!</h2>
     <p>Inloggning misslyckades. <a href="/">Försök igen!</a></p>
+    {% if message %}
+        <p style="color:red">{{ message }}</p>
+    {% endif %}
 {% endblock %}
