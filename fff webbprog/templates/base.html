@@ -1,18 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Demo inloggning via databas med Python och Flask</title>
+    <title>Världens bästa forum!</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   </head>
 
   <body>
-    <header>
-    <h1>Enkel inloggning och sessionshantering via databas med Python och Flask</h1>
-    </header>
-    <!-- Innehåll i nedanstående rad ges av specifika html-filer -->
-    <main>{% block content %}{% endblock %}</main>
+    <div class="container">
+      <header class="site-header">
+        <h1>Världens bästa forum!</h1>
+        <nav>
+          <a href="{{ url_for('annansida') }}">Trådar</a>
+          {% if session.get('user') %}
+            <span style="margin-left:12px;color:#333;">Inloggad som <strong>{{ session.get('user')['username'] }}</strong></span>
+            <a href="{{ url_for('logout') }}" style="float:right;">Logga ut</a>
+          {% else %}
+            <a href="{{ url_for('index') }}">Logga in</a>
+          {% endif %}
+        </nav>
+      </header>
+      <main>{% block content %}{% endblock %}</main>
+    </div>
   </body>
 
 </html>
