@@ -326,3 +326,69 @@ table tr:hover {
     padding: 10px 8px;
     font-size: 0.85em;
   }
+
+.main-post {
+    padding: 12px;
+    margin: 12px 0;
+    border-radius: 6px;
+  }
+
+  .comment {
+    padding: 12px;
+    margin: 12px 0;
+    border-radius: 4px;
+  }
+
+  .reply {
+    padding: 10px;
+    margin: 8px 0;
+  }
+
+  .replies {
+    margin-left: 10px;
+    margin-top: 10px;
+    padding-left: 10px;
+  }
+
+  .reply-form {
+    padding: 10px;
+    margin-top: 8px;
+  }
+
+  .comment-form-section {
+    padding: 12px;
+    margin-top: 12px;
+  }
+
+  .post-header,
+  .comment-header {
+    font-size: 0.95em;
+    margin-bottom: 6px;
+  }
+
+  .post-text,
+  .comment-text {
+    font-size: 0.9em;
+    line-height: 1.6;
+    margin: 8px 0;
+  }
+
+  .post-actions {
+    font-size: 0.8em;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .post-actions input[type="submit"] {
+    padding: 4px 8px;
+    font-size: 0.8em;
+    width: auto;
+  }
+
+  nav a {
+    display: inline-block;
+    padding: 6px 8px;
+    font-size: 0.85em;
+    margin: 2px 0;
+  }
+}
